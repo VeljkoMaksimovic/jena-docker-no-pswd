@@ -1,0 +1,36 @@
+version: v1.0
+name: Initial Pipeline
+agent:
+  machine:
+    type: f1-standard-2
+    os_image: ubuntu2204
+blocks:
+  - name: End-to-End Tests
+    task:
+      jobs:
+        - name: All te currents tests you have
+          commands:
+            - echo 1
+    dependencies: []
+  - name: Build Docker Image
+    dependencies: []
+    task:
+      jobs:
+        - name: Build Docker Image
+          commands:
+            - ecto 1
+  - name: Deploy to Staging
+    dependencies:
+      - Build Docker Image
+    task:
+      jobs:
+        - name: Deploy to Staging
+          commands:
+            - echo 1
+promotions:
+  - name: Deploy to App02 (AWS)
+    pipeline_file: pipeline_2.yml
+  - name: Deploy to App03 (AWS)
+    pipeline_file: pipeline_3.yml
+  - name: Deploy to App04 (AWS)
+    pipeline_file: pipeline_4.yml
